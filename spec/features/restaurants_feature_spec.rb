@@ -47,18 +47,23 @@ require 'rails_helper'
           click_link("KFC")
           expect(page).to have_content("Deep fried goodness")
       end
+
+    context "editing restaurant" do
+
+      before do
+        Restaurant.create(name: "KFC", description: "Deep fried goodness")
+      end
+
+      scenario "user can edit a restaurant" do
+        visit("/restaurants")
+        click_link("Edit KFC")
+        fill_in("Name", with: "Nandos")
+        click_button("Update restaurant")
+        expect(page).to have_content("Nandos")
+        expect(page).not_to have_content("KFC")
+      end
+
+    end
   end
 
 
-
-  #     context "displaying restaurant" do
-  #       before do
-  #         Restaurant.create(name: "KFC")
-  #       end
-  #
-  #       scenario "can see restaurant details" do
-  #         visit("/restaurants")
-  #         click_link("KFC")
-  #
-  #         expect(current_page).to eq("/restaurants")
-  # end
