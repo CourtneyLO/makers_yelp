@@ -37,6 +37,16 @@ require 'rails_helper'
           expect(page).to have_content("KFC")
         end
       end
+
+      scenario "user can give restaurant a description" do
+          visit("/restaurants")
+          click_link("Add restaurant")
+          fill_in("Name", with: "KFC")
+          fill_in("Description", with: "Deep fried goodness")
+          click_button("Create restaurant")
+          click_link("KFC")
+          expect(page).to have_content("Deep fried goodness")
+      end
   end
 
 
