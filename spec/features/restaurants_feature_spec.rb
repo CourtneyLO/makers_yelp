@@ -64,6 +64,20 @@ require 'rails_helper'
       end
 
     end
+
+    context "delete restaurant" do
+    
+      before do
+        Restaurant.create(name: "KFC", description: "Deep fried goodness")
+      end
+
+      scenario "Allows user to delete restaurant" do
+        visit("/restaurants")
+        click_link("Delete KFC")
+
+        expect(page).to have_content("Restaurant has been successfully deleted")
+        expect(page).not_to have_content("KFC")
+        expect(current_path).to eq("/restaurants")
+      end
+    end
   end
-
-
